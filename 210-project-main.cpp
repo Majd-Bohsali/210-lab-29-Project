@@ -10,7 +10,6 @@
 using namespace  std; 
 
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData);
-
 const int NUM_SIMS = 48;
 int main() {    
     map<string, array<list<double>,3>> trafficData; 
@@ -24,8 +23,11 @@ int main() {
         cout << "Unable to read data file";
     }
 
+    // Output inital traffic state
+
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
-        // call simulateTimeStep
+        // call simulateTimeStep(trafficData)
+        // Output current traffic states
     }
     // Output results in a formated output
 
