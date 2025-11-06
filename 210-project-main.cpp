@@ -10,6 +10,7 @@
 using namespace  std; 
 
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData);
+void printData(map<string, array<list<double>,3>> trafficData);
 const int NUM_SIMS = 48;
 int main() {    
     map<string, array<list<double>,3>> trafficData; 
@@ -23,13 +24,20 @@ int main() {
         cout << "Unable to read data file";
     }
 
-    // Output inital traffic state
+    // temporary dummy data
+    trafficData["Intersection1"][0].push_back(35); 
+    trafficData["Intersection1"][1].push_back(5); 
+    trafficData["Intersection1"][2].push_back(1); 
 
+    // Output inital traffic state
+    cout << "Inital Print: " << endl; 
+    printData(trafficData); 
+
+    cout << "Running Simulations..." << endl;
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
-        simulateTimeStep(trafficData) // runs a simulation
+        simulateTimeStep(trafficData); // runs a simulation
         // Output current traffic states
     }
-    // Output results in a formated output
 
     return 0;
 }
@@ -41,4 +49,14 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
         // Calculate new traffic from the inflow and outflow values
         // Modify inflow and outflow rates if necessary
         // Push new values to each list in the map
+    printData(trafficData); 
+}
+
+void printData(map<string, array<list<double>,3>> trafficData) { 
+    for(auto& data: trafficData) { 
+        cout << "Intersection: " << data.first << endl
+             << "\tCars: " << data.second[0].back() << endl 
+             << "\tInflow: " << data.second[1].back() << endl 
+             << "\tOutflow: " << data.second[2].back() << endl << endl; 
+    }
 }

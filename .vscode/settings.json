@@ -2,6 +2,9 @@
     "files.associations": {
         "fstream": "cpp",
         "array": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "utility": "cpp",
+        "list": "cpp",
+        "ostream": "cpp"
     }
 }
