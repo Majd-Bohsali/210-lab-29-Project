@@ -1,1 +1,10 @@
-This project simulates traffic flow
+This project simulates traffic flow across different intersections. 
+The simulation runs over discrete time steps, showing the change in traffic over time.
+The program will use the map data structure:
+    map<string, array<list<double>, 3> population.
+The map key will be the name of an intersection
+The map's value will be an array that holds 3 list values
+    - Number of cars in traffic at every time step
+    - Inflow rate, changes throughout the simulation, list will hold data history
+    - Light cycle rate/outflow rate, changes throughout the simulation, list will hold data history
+the input txt file will hold the intersection name, starting number of cars, inflow rate, light cycle rate/outflow rate
