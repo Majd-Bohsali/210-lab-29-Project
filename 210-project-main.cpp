@@ -26,7 +26,7 @@ int main() {
     // Output inital traffic state
 
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
-        // call simulateTimeStep(trafficData)
+        simulateTimeStep(trafficData) // runs a simulation
         // Output current traffic states
     }
     // Output results in a formated output
