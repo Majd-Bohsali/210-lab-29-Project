@@ -1,10 +1,19 @@
-This project simulates traffic flow across different intersections. 
-The simulation runs over discrete time steps, showing the change in traffic over time.
-The program will use the map data structure:
-    map<string, array<list<double>, 3> population.
-The map key will be the name of an intersection
-The map's value will be an array that holds 3 list values
+Project Overview:
+My project simulates traffic flow across multiple intersections over 48 hours(one hour is one time step), showing how congestion develops or clears over time.
+The program will model how the number of vehicles at an intersection accumulates over time depending on the arrival rate and traffic light timing.
+The software will illustrate how adjusting signal timing or unexpected events can impact traffic efficiency.
+
+Implementation: 
+I will use a std::map to store the data at each intersection.
+The map’s key will be the name of the intersection and the value will be an array of 3 lists.
+The three lists will represent:
     - Number of cars in traffic at every time step
-    - Inflow rate, changes throughout the simulation, list will hold data history
-    - Light cycle rate/outflow rate, changes throughout the simulation, list will hold data history
-the input txt file will hold the intersection name, starting number of cars, inflow rate, light cycle rate/outflow rate
+    - Inflow rate, which changes throughout the simulation. The list will hold data history
+    - Light cycle rate/outflow rate, which changes throughout the simulation. The list will hold data history
+The program will load the starting data for each intersection from an input txt file. 
+
+Simulated events:
+The simulation will focus on three events: the time of day causing an increase or decrease in traffic inflow,
+and unexpected events such as accidents or road work that may slow down outflow rates.
+The inflow rate will depend on the hour of the day (during rush hour or late at night),
+but at any given time, an accident or event may occur that affects the rates.
