@@ -59,24 +59,27 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
         // Calculate new traffic from the inflow and outflow values
         // Modify inflow and outflow rates if necessary
         // Push new values to each list in the map
+
+    // update inflow or outflow values
+    // inflow increases near rush hour time (8 AM and 4 PM) then decreases
+    // outflow decreases near rush hour time (8 AM and 4 PM) then incresae
+    double rushHour1 = 8, rushHour2 = 16, PI = acos(-1);  
+    hour %= 24; 
+    double rushHourManipulator1 = (cos((hour - rushHour1) *  PI/ 4.0) + 1.0)/2;
+    double rushHourManipulator2 = (cos((hour - rushHour2) *  PI/ 4.0) + 1.0)/2;
+    double rushHourManipulator = min(1.0, (rushHourManipulator1 + rushHourManipulator2)/2.0); 
+
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
         double numCars = intersection.second[0].back();
         double carInflow = intersection.second[1].back();
         double carOutflow = intersection.second[2].back();
 
+        carInflow = 1 + 0.8 * rushHourManipulator; 
+        carOutflow = 1 - 0.5 * rushHourManipulator; 
+
         double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
-        double newCars = max(numCars + carInflow - carLeave, 0.0); // cant count cant become negative
-
-        // update inflow or outflow values
-        // inflow increases near rush hour time (8 AM and 4 PM) then decreases
-        // outflow decreases near rush hour time (8 AM and 4 PM) then incresae
-        double rushHour1 = 8, rushHour2 = 16, PI = acos(-1);  
-        hour %= 24; 
-        double rushHourManipulator = (cos((hour - rushHour1) *  PI/ 6.0) + 1.0);
-
-        carInflow *= rushHourManipulator; 
-        carOutflow *= rushHourManipulator; 
+        double newCars = max(numCars + carInflow - carLeave, 0.0); // count cant become negative
 
         // updates values 
         intersection.second[0].push_back(newCars);

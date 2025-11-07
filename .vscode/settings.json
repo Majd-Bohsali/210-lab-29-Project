@@ -8,6 +8,7 @@
         "ostream": "cpp",
         "string": "cpp",
         "xstring": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "cmath": "cpp"
     }
 }
