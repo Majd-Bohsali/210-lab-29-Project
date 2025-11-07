@@ -7,6 +7,8 @@
 #include <array>
 #include <list>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 using namespace  std; 
 
@@ -14,7 +16,8 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData);
 void printAllData(map<string, array<list<double>,3>> trafficData);
 void printData(map<string, array<list<double>,3>> trafficData);
 const int NUM_SIMS = 48, CARS_PER_GREEN_SEC = 10; // CARS_PER_GREEN_SEC = number of cars that leave per second of light being green
-int main() {    
+int main() {  
+    srand(time(0));  
     map<string, array<list<double>,3>> trafficData; 
     ifstream inputFile("input.txt"); 
     string inputLine; 
