@@ -5,6 +5,7 @@
         "map": "cpp",
         "utility": "cpp",
         "list": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "string": "cpp"
     }
 }
