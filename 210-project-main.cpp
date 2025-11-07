@@ -13,13 +13,14 @@
 
 using namespace  std; 
 
-void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour);
+void simulateTimeStep(map<string, array<list<double>,3>>& trafficData);
 void printAllData(map<string, array<list<double>,3>> trafficData);
 void printData(map<string, array<list<double>,3>> trafficData);
 const int NUM_SIMS = 48, CARS_PER_GREEN_SEC = 10; // CARS_PER_GREEN_SEC = number of cars that leave per second of light being green
 int main() {  
     srand(time(0));  
     map<string, array<list<double>,3>> trafficData; 
+    map<string, array<list<double>,3>> trafficTestData; 
     ifstream inputFile("input.txt"); 
     string inputLine; 
 
@@ -42,17 +43,33 @@ int main() {
         cout << "Unable to read data file";
     }
 
+    // Test Case 1
+    trafficTestData["A"][0].push_back(50);
+    trafficTestData["A"][1].push_back(5);
+    trafficTestData["A"][2].push_back(0.5);
+    // Test Case 2
+    trafficTestData["B"][0].push_back(0);
+    trafficTestData["B"][1].push_back(10);
+    trafficTestData["B"][2].push_back(1.0);
+    
+
     cout << "Running Simulations..." << endl;
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
-        simulateTimeStep(trafficData, i); // runs a simulation
+        simulateTimeStep(trafficData); // runs a simulation
+        simulateTimeStep(trafficTestData);
     }
+    cout << "Completed Running Simulations..." << endl;
 
+    cout << endl << "Print for test data" << endl; 
+    printData(trafficTestData); 
+
+    cout << endl << "Print real program data" << endl; 
     printData(trafficData); 
 
     return 0;
 }
 
-void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour) {
+void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
     // For each intersection in the map
         // Get the most recent rates and values from the lists
         // Check for any possible accidents (will be low % rate)
@@ -95,12 +112,15 @@ void printAllData(map<string, array<list<double>,3>> trafficData) {
 
 void printData(map<string, array<list<double>,3>> trafficData) { 
     string selection;
-    do {
     cout << "What Intersection do you want to check (type end to quit): "; 
     cin >> selection; 
-    cout << "Intersection Selected: " << selection << endl
-         << "\tCurrent Number of cars: " << trafficData[selection][0].back() << endl 
-         << "\tCar Inflow: " << trafficData[selection][1].back() << endl 
-         << "\tCar Outflow: " << trafficData[selection][2].back() << endl; 
-    } while (selection != "end"); 
+
+    while (selection != "end") {
+        cout << "Intersection Selected: " << selection << endl
+            << "\tCurrent Number of cars: " << trafficData[selection][0].back() << endl 
+            << "\tCar Inflow: " << trafficData[selection][1].back() << endl 
+            << "\tCar Outflow: " << trafficData[selection][2].back() << endl; 
+        cout << "What Intersection do you want to check (type end to quit): "; 
+        cin >> selection; 
+    } 
 }
