@@ -70,7 +70,8 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
         double chance = rand() % 100 + 1; 
         if(chance <= 2) { 
             carOutflow *= 0.5; 
-            cout << "Accident at " << name << endl; 
+        } else {
+            carOutflow = intersection.second[2].front(); // takes original value after accident clears
         }
 
         double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
@@ -93,7 +94,7 @@ void printAllData(map<string, array<list<double>,3>> trafficData) {
 }
 
 void printData(map<string, array<list<double>,3>> trafficData) { 
-    string selection; 
+    string selection;
     do {
     cout << "What Intersection do you want to check (type end to quit): "; 
     cin >> selection; 

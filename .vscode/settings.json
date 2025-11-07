@@ -9,6 +9,7 @@
         "string": "cpp",
         "xstring": "cpp",
         "cstdlib": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "iostream": "cpp"
     }
 }
