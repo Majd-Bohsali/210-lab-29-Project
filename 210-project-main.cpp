@@ -43,6 +43,8 @@ int main() {
         simulateTimeStep(trafficData); // runs a simulation
     }
 
+    printData(trafficData); 
+
     return 0;
 }
 
@@ -80,11 +82,12 @@ void printAllData(map<string, array<list<double>,3>> trafficData) {
 
 void printData(map<string, array<list<double>,3>> trafficData) { 
     string selection; 
-    cout << "What Intersection do you want to check: "; 
+    do {
+    cout << "What Intersection do you want to check (type end to quit): "; 
     cin >> selection; 
-    cout << endl; 
     cout << "Intersection Selected: " << selection << endl
          << "\tCurrent Number of cars: " << trafficData[selection][0].back() << endl 
-         << "\tCurrent Car Inflow: " << trafficData[selection][0].back() << endl 
-         << "\tCurrent Car Outflow: " << trafficData[selection][0].back() << endl; 
+         << "\tCurrent Car Inflow: " << trafficData[selection][1].back() << endl 
+         << "\tCurrent Car Outflow: " << trafficData[selection][2].back() << endl; 
+    } while (selection != "end"); 
 }
