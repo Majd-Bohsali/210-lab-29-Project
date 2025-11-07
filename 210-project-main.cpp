@@ -12,7 +12,7 @@
 
 using namespace  std; 
 
-void simulateTimeStep(map<string, array<list<double>,3>>& trafficData);
+void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour);
 void printAllData(map<string, array<list<double>,3>> trafficData);
 void printData(map<string, array<list<double>,3>> trafficData);
 const int NUM_SIMS = 48, CARS_PER_GREEN_SEC = 10; // CARS_PER_GREEN_SEC = number of cars that leave per second of light being green
@@ -43,7 +43,7 @@ int main() {
 
     cout << "Running Simulations..." << endl;
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
-        simulateTimeStep(trafficData); // runs a simulation
+        simulateTimeStep(trafficData, i); // runs a simulation
     }
 
     printData(trafficData); 
@@ -51,7 +51,7 @@ int main() {
     return 0;
 }
 
-void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
+void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour) {
     // For each intersection in the map
         // Get the most recent rates and values from the lists
         // Check for any possible accidents (will be low % rate)
@@ -68,6 +68,7 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
         double newCars = max(numCars + carInflow - carLeave, 0.0); // cant count cant become negative
 
         // updatse inflow or outflow values
+        
 
         // updates values 
         intersection.second[0].push_back(newCars);
