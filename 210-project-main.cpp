@@ -69,10 +69,14 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
         double newCars = max(numCars + carInflow - carLeave, 0.0); // cant count cant become negative
 
         // update inflow or outflow values
-        // inflow increases near rush hour time (8 AM and 5 PM) then decreases
+        // inflow increases near rush hour time (8 AM and 4 PM) then decreases
+        // outflow decreases near rush hour time (8 AM and 4 PM) then incresae
+        double rushHour1 = 8, rushHour2 = 16, PI = acos(-1);  
         hour %= 24; 
-        
-        // outflow decreases near rush hour time (8 AM and 5 PM) then incresae
+        double rushHourManipulator = (cos((hour - rushHour1) *  PI/ 6.0) + 1.0);
+
+        carInflow *= rushHourManipulator; 
+        carOutflow *= rushHourManipulator; 
 
         // updates values 
         intersection.second[0].push_back(newCars);
