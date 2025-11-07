@@ -4,7 +4,16 @@ Will test the simulateTimeStep() functon to ensure it
     - never allows number of cars to be negative
     - only apply accidents temporarily
 
-- Will add one intersection, A, with cars = 50, inflow = 5, outflow = 0.5, CAR_PER_GREEN_SEC = 10
-- Expcted outcome of 50 if no accidents 
+Test Case 1: 
+- Will add one intersection, A, with
+    - cars = 50, 
+    - inflow = 5, 
+    - outflow = 0.5
+- Expcted outcome of 50 if no accidents occur
 
-- Test with car = 0. inflow = 1, outflow = 0.9 to make sure there are no negative values for #cars
+Test Case 2: 
+- Will add one intersection, B, with
+    - cars = 0, 
+    - inflow = 10, 
+    - outflow = 1.0
+- Expcted outcome of 0 if no accidents occur, will make sure car count is never negative 
