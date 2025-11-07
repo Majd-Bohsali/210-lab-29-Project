@@ -52,7 +52,6 @@ int main() {
     trafficTestData["B"][1].push_back(10);
     trafficTestData["B"][2].push_back(1.0);
     
-
     cout << "Running Simulations..." << endl;
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
         simulateTimeStep(trafficData); // runs a simulation
