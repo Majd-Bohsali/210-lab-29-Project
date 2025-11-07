@@ -68,7 +68,7 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
 
         // checks if there is an accident 
         double chance = rand() % 100 + 1; 
-        if(chance <= 5) { 
+        if(chance <= 2) { 
             carOutflow *= 0.5; 
             cout << "Accident at " << name << endl; 
         }
