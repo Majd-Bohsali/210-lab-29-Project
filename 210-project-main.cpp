@@ -12,7 +12,8 @@ using namespace  std;
 
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData);
 void printAllData(map<string, array<list<double>,3>> trafficData);
-const int NUM_SIMS = 48;
+void printData(map<string, array<list<double>,3>> trafficData);
+const int NUM_SIMS = 48, CARS_PER_GREEN_SEC = 10; // CARS_PER_GREEN_SEC = number of cars that leave per second of light being green
 int main() {    
     map<string, array<list<double>,3>> trafficData; 
     ifstream inputFile("input.txt"); 
@@ -37,14 +38,9 @@ int main() {
         cout << "Unable to read data file";
     }
 
-    // Output inital traffic state
-    cout << "Inital Print: " << endl; 
-    printAllData(trafficData); 
-
     cout << "Running Simulations..." << endl;
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
         simulateTimeStep(trafficData); // runs a simulation
-        // Output current traffic states
     }
 
     return 0;
@@ -63,7 +59,13 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
         double carInflow = intersection.second[1].back();
         double carOutflow = intersection.second[2].back();
 
-        double 
+        double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
+        double newCars = max(numCars + carInflow - carLeave, 0.0); // cant count cant become negative
+
+        // updates values 
+        intersection.second[0].push_back(newCars);
+        intersection.second[1].push_back(carInflow);
+        intersection.second[2].push_back(carOutflow);
     }
 }
 
@@ -74,4 +76,15 @@ void printAllData(map<string, array<list<double>,3>> trafficData) {
              << "\tInflow: " << data.second[1].back() << endl 
              << "\tOutflow: " << data.second[2].back() << endl << endl; 
     }
+}
+
+void printData(map<string, array<list<double>,3>> trafficData) { 
+    string selection; 
+    cout << "What Intersection do you want to check: "; 
+    cin >> selection; 
+    cout << endl; 
+    cout << "Intersection Selected: " << selection << endl
+         << "\tCurrent Number of cars: " << trafficData[selection][0].back() << endl 
+         << "\tCurrent Car Inflow: " << trafficData[selection][0].back() << endl 
+         << "\tCurrent Car Outflow: " << trafficData[selection][0].back() << endl; 
 }
