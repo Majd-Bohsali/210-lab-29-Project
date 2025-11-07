@@ -64,6 +64,8 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
         double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
         double newCars = max(numCars + carInflow - carLeave, 0.0); // cant count cant become negative
 
+        // updatse inflow or outflow values
+
         // updates values 
         intersection.second[0].push_back(newCars);
         intersection.second[1].push_back(carInflow);
