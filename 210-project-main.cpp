@@ -2,6 +2,7 @@
 // IDE Used: Visual Studio Code
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <map>
 #include <array>
 #include <list>
@@ -14,11 +15,23 @@ void printData(map<string, array<list<double>,3>> trafficData);
 const int NUM_SIMS = 48;
 int main() {    
     map<string, array<list<double>,3>> trafficData; 
-
     ifstream inputFile("input.txt"); 
+    string inputLine; 
 
     if(inputFile.is_open()) { 
         // collect data and push into map
+        while (getline(inputFile, inputLine)) {
+            string interName, carCount, carInflow, carOutflow; 
+            stringstream ss(inputLine); 
+
+            getline(ss, interName, ','); 
+            getline(ss, carCount, ','); 
+            getline(ss, carInflow, ','); 
+            getline(ss, carOutflow, ','); 
+            trafficData[interName][0].push_back(stod(carCount)); 
+            trafficData[interName][1].push_back(stod(carInflow)); 
+            trafficData[interName][2].push_back(stod(carOutflow)); 
+        }
         inputFile.close();
     } else { 
         cout << "Unable to read data file";
