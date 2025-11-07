@@ -9,6 +9,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 
 using namespace  std; 
 
@@ -67,8 +68,11 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
         double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
         double newCars = max(numCars + carInflow - carLeave, 0.0); // cant count cant become negative
 
-        // updatse inflow or outflow values
+        // update inflow or outflow values
+        // inflow increases near rush hour time (8 AM and 5 PM) then decreases
+        hour %= 24; 
         
+        // outflow decreases near rush hour time (8 AM and 5 PM) then incresae
 
         // updates values 
         intersection.second[0].push_back(newCars);
