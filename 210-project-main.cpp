@@ -91,7 +91,7 @@ void printAllData(map<string, array<list<double>,3>> trafficData) {
              << "\tInflow: " << data.second[1].back() << endl 
              << "\tOutflow: " << data.second[2].back() << endl << endl; 
     }
-}
+}   
 
 void printData(map<string, array<list<double>,3>> trafficData) { 
     string selection;

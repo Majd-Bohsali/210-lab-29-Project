@@ -15,5 +15,4 @@ The program will load the starting data for each intersection from an input txt 
 Simulated events:
 The simulation will focus on three events: the time of day causing an increase or decrease in traffic inflow,
 and unexpected events such as accidents or road work that may slow down outflow rates.
-The inflow rate will depend on the hour of the day (during rush hour or late at night),
-but at any given time, an accident or event may occur that affects the rates.
+At any given time, an accident or event may occur that affects the rates.
