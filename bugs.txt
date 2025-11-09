@@ -1,24 +1,24 @@
 Bug #1: 
     Bug: When accidents occured the outflow decreased for rest of simulation
-    Fix: Set the outflow to only change for the current hour time-step and 
-         saved the past hour run
+    Fix: Updated the code so the accident only affects the current time-step
+        and the original outflow value is saved for the next hour.
 
 Bug #2: 
-    Bug: Rush hour bug, cars number set to 0, inflow ery high and very flow outflow
-    Fix: had to invert function
+    Bug: During rush hour, the number of cars dropped to 0, inflow became extremely high, and outflow became extremely low.
+    Fix: Corrected the rush-hour scale function by inverting the equation used to calculate the efficiency curve.
 
 Bug #3: 
-    Bug: Rush hour bug, Outflow never changed becuase "else" statement for accident events overrided outflow value
+    Bug: Outflow value never changed because the else block (used for accident event) was overwriting the rush hour outflow value.
     Fix: removed else block
 
 Bug #4: 
-    Bug: Rush hour bug, outflow values gets very small and number of cars explodes
+    Bug: Outflow during rush hour became too small. Car count value exploded.
     Fix: multiplied rush hour efficiency against the original intersection outflow and inflow numbers (front of array)
 
 Bug #5: 
-    Bug: When outputting data, if the user selects an intersection that does not exist, program returns an empty output
+    Bug: When the user entered an intersection name that did not exist, program printed blank histories
     Fix: Used trafficData.find(selection) instead of trafficData[selection] to access data values
 
 Bug #6: 
-    Bug: "Selection does not exist" prints infinitly after invalid serch
-    Fix: moved cin >> selection outslide else statement for the invalid search if-else block
+    Bug: After invalid search, "Selection does not exist" prints infinitly
+    Fix: moved cin >> selection code outslide else statement so the input is requested again after error message

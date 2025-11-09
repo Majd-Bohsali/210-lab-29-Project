@@ -58,7 +58,7 @@ int main() {
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour) {
     hour %= 24;
     // Defines values needed for rush peaks and efficencey
-    double rush1 = 5, rush2 = 17, out_min = 0.6, out_max = 1.8, in_min = 0.9, in_max = 1.3, PI = acos(-1); 
+    double rush1 = 5, rush2 = 17, out_min = 0.45, out_max = 1.8, in_min = 0.9, in_max = 1.3, PI = acos(-1); 
     
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
@@ -66,8 +66,8 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
         double baseCarInflow = intersection.second[1].front();
         double baseCarOutflow = intersection.second[2].front();
 
-        double inflowMult = ((in_max - in_min)/2) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + in_min; 
-        double outflowMult = ((out_max - out_min) / 2.0) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + out_min;
+        double inflowMult = ((in_max - in_min)/2) * (pow((cos((hour - rush1) * (2 * PI / (rush2 - rush1)))), 3 ) + 1.0) + in_min; 
+        double outflowMult = ((out_max - out_min) / 2.0) * (pow((cos((hour - rush1) * (2 * PI / (rush2 - rush1)))), 3) + 1.0) + out_min;
 
         double carInflow = baseCarInflow * inflowMult; 
         double carOutflow = baseCarOutflow * outflowMult; 
