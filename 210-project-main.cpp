@@ -62,14 +62,14 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
         double numCars = intersection.second[0].back();
-        double carInflow = intersection.second[1].back();
-        double carOutflow = intersection.second[2].back();
+        double baseCarInflow = intersection.second[1].back();
+        double baseCarOutflow = intersection.second[2].back();
 
         double inflowMult = ((in_max - in_min)/2) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + in_min; 
         double outflowMult = ((out_max - out_max) / 2.0) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + out_min;
 
-        carInflow = carInflow * inflowMult; 
-        carOutflow = carOutflow * outflowMult; 
+        double carInflow = baseCarInflow * inflowMult; 
+        double carOutflow = baseCarOutflow * outflowMult; 
         carOutflow = max(0.1, min(1.0, carOutflow)); 
 
         // checks if there is an accident 
