@@ -1,7 +1,8 @@
 Bug #1: 
     Bug: When accidents occured the outflow decreased for rest of simulation
     Fix: Updated the code so the accident only affects the current time-step
-        and the original outflow value is saved for the next hour.
+        and the original outflow value is saved for the next hour. --> later reupdated 
+        so the baseline value of ever simulation is taken from the front of the array
 
 Bug #2: 
     Bug: During rush hour, the number of cars dropped to 0, inflow became extremely high, and outflow became extremely low.
@@ -22,3 +23,16 @@ Bug #5:
 Bug #6: 
     Bug: After invalid search, "Selection does not exist" prints infinitly
     Fix: moved cin >> selection code outslide else statement so the input is requested again after error message
+
+Bug #7: 
+    Bug: Car count became a decimal value and sometimes negative
+    Fix: casting car count to an integer, used a min() function to set minimum car count to 0 
+
+Bug #8: 
+    Bug: Outflow efficiency changed once and stayed at that value for the entire simulation
+    Fix: in outflow efficiency multipler function, used "(out_max - out_max)" instead of "(out_max - out_min)"
+        multipler never changed. Fixed function. 
+
+Bug #9: 
+    Bug: Car count became a decimal value and sometimes negative
+    Fix: casting car count to an integer, used a min() function to set minimum car count to 0 
