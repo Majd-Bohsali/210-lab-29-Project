@@ -11,6 +11,6 @@ Bug #3:
     Bug: Rush hour bug, Outflow never changed becuase "else" statement for accident events overrided outflow value
     Fix: removed else block
 
-Bug #4: 
-    Bug: Car count increases too much, outflow decreases too much
-    Fix: set a miniumum outflow higher than 0. 
+Bug #3: 
+    Bug: Rush hour bug, outflow values gets very small and number of cars explodes
+    Fix: multiplied rush hour efficiency against the original intersection outflow and inflow numbers (front of array)
