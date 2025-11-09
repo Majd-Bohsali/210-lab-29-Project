@@ -36,3 +36,7 @@ Bug #8:
 Bug #9: 
     Bug: Car count became a decimal value and sometimes negative
     Fix: casting car count to an integer, used a min() function to set minimum car count to 0 
+
+Bug #10: 
+    Bug: Outflow efficiency set to integers above 1
+    Fix: used max() and min() functions to keep carOutFlow values between 0 and 1

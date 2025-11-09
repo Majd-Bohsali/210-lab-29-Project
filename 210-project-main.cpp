@@ -58,7 +58,7 @@ int main() {
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour) {
     hour %= 24;
     // Defines values needed for rush peaks and efficencey
-    double rush1 = 5, rush2 = 17, out_min = 0.45, out_max = 1.8, in_min = 0.9, in_max = 1.3, PI = acos(-1); 
+    double rush1 = 5, rush2 = 17, out_min = 0.45, out_max = 1.8, in_min = 0.9, in_max = 1.1, PI = acos(-1); 
     
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
@@ -71,14 +71,14 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
 
         double carInflow = baseCarInflow * inflowMult; 
         double carOutflow = baseCarOutflow * outflowMult; 
-        carOutflow = max(0.1, min(2.0, carOutflow)); 
+        carOutflow = max(0.1, min(1.0, carOutflow)); 
 
         // checks if there is an accident 
         double chance = rand() % 100 + 1; 
         if(chance <= 2) { 
             carOutflow *= 0.5; 
         }
-        carOutflow = max(0.1, min(2.0, carOutflow)); 
+        carOutflow = max(0.1, min(1.0, carOutflow)); 
 
         double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
         double newCars = (int)(max(numCars + carInflow - carLeave, 0.0)); // count cant become negative
@@ -118,7 +118,7 @@ void printData(map<string, array<list<double>,3>> trafficData) {
                 cout << endl << endl;
             cout << "  Inflow History: ";
                 for (double val : trafficData[selection][1])
-                    cout << val << ", ";
+                    cout << setprecision(3) << val << ", ";
                 cout << endl << endl;
             cout << "  Outflow History: ";
                 for (double val : trafficData[selection][2])
