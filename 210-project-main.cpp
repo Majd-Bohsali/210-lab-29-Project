@@ -15,8 +15,7 @@
 using namespace  std; 
 
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour);
-void printAllData(map<string, array<list<double>,3>> trafficData);
-void printData(map<string, array<list<double>,3>> trafficData);
+void printData(map<string, array<list<double>,3>>& trafficData);
 const int NUM_SIMS = 48, CARS_PER_GREEN_SEC = 10; // CARS_PER_GREEN_SEC = number of cars that leave per second of light being green
 int main() {  
     srand(time(0));  
@@ -90,16 +89,7 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
     }
 }
 
-void printAllData(map<string, array<list<double>,3>> trafficData) { 
-    for(auto& data: trafficData) { 
-        cout << "Intersection: " << data.first << endl
-             << "\tCars: " << data.second[0].back() << endl 
-             << "\tInflow: " << data.second[1].back() << endl 
-             << "\tOutflow: " << data.second[2].back() << endl << endl; 
-    }
-}   
-
-void printData(map<string, array<list<double>,3>> trafficData) { 
+void printData(map<string, array<list<double>,3>>& trafficData) { 
     string selection;
     cout << "What Intersection do you want to check (type end to quit): "; 
     cin >> selection; 

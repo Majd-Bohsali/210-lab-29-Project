@@ -35,7 +35,7 @@ Bug #8:
 
 Bug #9: 
     Bug: Outflow efficiency set to integers above 1
-    Fix: used max() and min() functions to keep carOutFlow values between 0 and 1
+    Fix: used max() and min() functions to keep carOutFlow values between 0.1 and 1
 
 Bug #10: 
     Bug: Outflow and inflow multiplier grew too smoothly to represent rush hour
