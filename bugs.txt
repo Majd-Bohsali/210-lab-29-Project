@@ -1,0 +1,42 @@
+Bug #1: 
+    Bug: When accidents occured the outflow decreased for rest of simulation
+    Fix: Updated the code so the accident only affects the current time-step
+        and the original outflow value is saved for the next hour. --> later reupdated 
+        so the baseline value of ever simulation is taken from the front of the array
+
+Bug #2: 
+    Bug: During rush hour, the number of cars dropped to 0, inflow became extremely high, and outflow became extremely low.
+    Fix: Corrected the rush-hour scale function by inverting the equation used to calculate the efficiency curve.
+
+Bug #3: 
+    Bug: Outflow value never changed because the else block (used for accident event) was overwriting the rush hour outflow value.
+    Fix: removed else block
+
+Bug #4: 
+    Bug: Outflow during rush hour became too small. Car count value exploded.
+    Fix: multiplied rush hour efficiency against the original intersection outflow and inflow numbers (front of array)
+
+Bug #5: 
+    Bug: When the user entered an intersection name that did not exist, program printed blank histories
+    Fix: Used trafficData.find(selection) instead of trafficData[selection] to access data values
+
+Bug #6: 
+    Bug: After invalid search, "Selection does not exist" prints infinitly
+    Fix: moved cin >> selection code outslide else statement so the input is requested again after error message
+
+Bug #7: 
+    Bug: Car count became a decimal value and sometimes negative
+    Fix: casting car count to an integer, used a min() function to set minimum car count to 0 
+
+Bug #8: 
+    Bug: Outflow efficiency changed once and stayed at that value for the entire simulation
+    Fix: in outflow efficiency multipler function, used "(out_max - out_max)" instead of "(out_max - out_min)"
+        multipler never changed. Fixed function. 
+
+Bug #9: 
+    Bug: Outflow efficiency set to integers above 1
+    Fix: used max() and min() functions to keep carOutFlow values between 0.1 and 1
+
+Bug #10: 
+    Bug: Outflow and inflow multiplier grew too smoothly to represent rush hour
+    Fix: set the cos function value to the power of 3 to create sharper changes
