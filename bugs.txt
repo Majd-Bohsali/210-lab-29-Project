@@ -17,4 +17,8 @@ Bug #4:
 
 Bug #5: 
     Bug: When outputting data, if the user selects an intersection that does not exist, program returns an empty output
-    Fix: 
+    Fix: Used trafficData.find(selection) instead of trafficData[selection] to access data values
+
+Bug #6: 
+    Bug: "Selection does not exist" prints infinitly after invalid serch
+    Fix: moved cin >> selection outslide else statement for the invalid search if-else block

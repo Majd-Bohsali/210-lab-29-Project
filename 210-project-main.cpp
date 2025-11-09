@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <iomanip>
 
 using namespace  std; 
 
@@ -114,17 +115,17 @@ void printData(map<string, array<list<double>,3>> trafficData) {
             cout << "  Number of Cars History: ";
                 for (double val : trafficData[selection][0])
                     cout << val << ", ";
-                cout << endl;
+                cout << endl << endl;
             cout << "  Inflow History: ";
                 for (double val : trafficData[selection][1])
                     cout << val << ", ";
-                cout << endl;
+                cout << endl << endl;
             cout << "  Outflow History: ";
                 for (double val : trafficData[selection][2])
-                    cout << val << ", ";
-                cout << endl;
-            
-            cout << "What Intersection do you want to check (type end to quit): "; 
-            cin >> selection; 
-    } 
+                    cout << setprecision(3) << val << ", ";
+                cout << endl << endl;
+        }   
+        cout << "What Intersection do you want to check (type end to quit): "; 
+        cin >> selection;  
+    }
 }
