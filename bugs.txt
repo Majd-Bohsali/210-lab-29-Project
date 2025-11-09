@@ -1,0 +1,4 @@
+Bug #1: 
+    Bug: When accidents occured the outflow decreased for rest of simulation
+    Fix: Set the outflow to only change for the current hour time-step and 
+         saved the past hour run
