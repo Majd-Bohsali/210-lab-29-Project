@@ -56,13 +56,21 @@ int main() {
 
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour) {
     hour %= 24;
-    double rush1 = 5, rush2 = 17, minEff = 0.2, maxEff = 0.8; 
+    // Defines values needed for rush peaks and efficencey
+    double rush1 = 5, rush2 = 17, y_min = 0.2, y_max = 0.8, in_min = 0.8, in_max = 1.6, PI = acos(-1); 
     
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
         double numCars = intersection.second[0].back();
         double carInflow = intersection.second[1].back();
         double carOutflow = intersection.second[2].back();
+
+        double inflowMult = ((in_max - in_min)/2) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + in_min; 
+        double outflowMult = ((y_max - y_min) / 2.0) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + y_min;
+
+        carInflow = carInflow * inflowMult; 
+        carOutflow = carOutflow * outflowMult; 
+         carOutflow = max(0.0, min(1.0, carOutflow)); 
 
         // checks if there is an accident 
         double chance = rand() % 100 + 1; 
@@ -71,6 +79,7 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
         } else {
             carOutflow = intersection.second[2].front(); // takes original value after accident clears
         }
+        carOutflow = max(0.0, min(1.0, carOutflow)); 
 
         double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
         double newCars = (int)(max(numCars + carInflow - carLeave, 0.0)); // count cant become negative
