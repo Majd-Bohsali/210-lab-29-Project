@@ -13,14 +13,13 @@
 
 using namespace  std; 
 
-void simulateTimeStep(map<string, array<list<double>,3>>& trafficData);
+void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour);
 void printAllData(map<string, array<list<double>,3>> trafficData);
 void printData(map<string, array<list<double>,3>> trafficData);
 const int NUM_SIMS = 48, CARS_PER_GREEN_SEC = 10; // CARS_PER_GREEN_SEC = number of cars that leave per second of light being green
 int main() {  
     srand(time(0));  
     map<string, array<list<double>,3>> trafficData; 
-    map<string, array<list<double>,3>> trafficTestData; 
     ifstream inputFile("input.txt"); 
     string inputLine; 
 
@@ -42,25 +41,12 @@ int main() {
     } else { 
         cout << "Unable to read data file";
     }
-
-    // Test Case 1
-    trafficTestData["A"][0].push_back(50);
-    trafficTestData["A"][1].push_back(5);
-    trafficTestData["A"][2].push_back(0.5);
-    // Test Case 2
-    trafficTestData["B"][0].push_back(0);
-    trafficTestData["B"][1].push_back(10);
-    trafficTestData["B"][2].push_back(1.0);
     
     cout << "Running Simulations..." << endl;
     for(int i = 0; i < NUM_SIMS; i++) { // runs for NUM_SIMS times
-        simulateTimeStep(trafficData); // runs a simulation
-        simulateTimeStep(trafficTestData);
+        simulateTimeStep(trafficData, i); // runs a simulation
     }
     cout << "Completed Running Simulations..." << endl;
-
-    cout << endl << "Print for test data" << endl; 
-    printData(trafficTestData); 
 
     cout << endl << "Print real program data" << endl; 
     printData(trafficData); 
@@ -68,7 +54,10 @@ int main() {
     return 0;
 }
 
-void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
+void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour) {
+    hour %= 24;
+    double rush1 = 5, rush2 = 17, minEff = 0.2, maxEff = 0.8; 
+    
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
         double numCars = intersection.second[0].back();
