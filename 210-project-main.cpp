@@ -69,13 +69,6 @@ int main() {
 }
 
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData) {
-    // For each intersection in the map
-        // Get the most recent rates and values from the lists
-        // Check for any possible accidents (will be low % rate)
-        // Calculate new traffic from the inflow and outflow values
-        // Modify inflow and outflow rates if necessary
-        // Push new values to each list in the map
-
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
         double numCars = intersection.second[0].back();
