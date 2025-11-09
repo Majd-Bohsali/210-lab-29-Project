@@ -2,3 +2,15 @@ Bug #1:
     Bug: When accidents occured the outflow decreased for rest of simulation
     Fix: Set the outflow to only change for the current hour time-step and 
          saved the past hour run
+
+Bug #2: 
+    Bug: Rush hour bug, cars number set to 0, inflow ery high and very flow outflow
+    Fix: had to invert function
+
+Bug #3: 
+    Bug: Rush hour bug, Outflow never changed becuase "else" statement for accident events overrided outflow value
+    Fix: removed else block
+
+Bug #4: 
+    Bug: Car count increases too much, outflow decreases too much
+    Fix: set a miniumum outflow higher than 0. 
