@@ -34,9 +34,9 @@ Bug #8:
         multipler never changed. Fixed function. 
 
 Bug #9: 
-    Bug: Car count became a decimal value and sometimes negative
-    Fix: casting car count to an integer, used a min() function to set minimum car count to 0 
-
-Bug #10: 
     Bug: Outflow efficiency set to integers above 1
     Fix: used max() and min() functions to keep carOutFlow values between 0 and 1
+
+Bug #10: 
+    Bug: Outflow and inflow multiplier grew too smoothly to represent rush hour
+    Fix: set the cos function value to the power of 3 to create sharper changes
