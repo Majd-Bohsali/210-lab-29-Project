@@ -57,7 +57,7 @@ int main() {
 void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour) {
     hour %= 24;
     // Defines values needed for rush peaks and efficencey
-    double rush1 = 5, rush2 = 17, out_min = 0.55, out_max = 0.92, in_min = 0.9, in_max = 1.3, PI = acos(-1); 
+    double rush1 = 5, rush2 = 17, out_min = 0.6, out_max = 1.8, in_min = 0.9, in_max = 1.3, PI = acos(-1); 
     
     for(auto& intersection: trafficData) {
         string name = intersection.first;  
@@ -66,18 +66,18 @@ void simulateTimeStep(map<string, array<list<double>,3>>& trafficData, int hour)
         double baseCarOutflow = intersection.second[2].front();
 
         double inflowMult = ((in_max - in_min)/2) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + in_min; 
-        double outflowMult = ((out_max - out_max) / 2.0) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + out_min;
+        double outflowMult = ((out_max - out_min) / 2.0) * (cos((hour - rush1) * (2 * PI / (rush2 - rush1))) + 1.0) + out_min;
 
         double carInflow = baseCarInflow * inflowMult; 
         double carOutflow = baseCarOutflow * outflowMult; 
-        carOutflow = max(0.1, min(1.0, carOutflow)); 
+        carOutflow = max(0.1, min(2.0, carOutflow)); 
 
         // checks if there is an accident 
         double chance = rand() % 100 + 1; 
         if(chance <= 2) { 
             carOutflow *= 0.5; 
         }
-        carOutflow = max(0.1, min(1.0, carOutflow)); 
+        carOutflow = max(0.1, min(2.0, carOutflow)); 
 
         double carLeave = carOutflow * CARS_PER_GREEN_SEC; 
         double newCars = (int)(max(numCars + carInflow - carLeave, 0.0)); // count cant become negative
@@ -104,21 +104,27 @@ void printData(map<string, array<list<double>,3>> trafficData) {
     cin >> selection; 
 
     while (selection != "end") {
-        cout << "Intersection Selected: " << selection << endl;
-        cout << "  Number of Cars History: ";
-            for (double val : trafficData[selection][0])
-                cout << val << ", ";
-            cout << endl;
-        cout << "  Inflow History: ";
-            for (double val : trafficData[selection][1])
-                cout << val << ", ";
-            cout << endl;
-        cout << "  Outflow History: ";
-            for (double val : trafficData[selection][2])
-                cout << val << ", ";
-            cout << endl;
-        
-        cout << "What Intersection do you want to check (type end to quit): "; 
-        cin >> selection; 
+
+        auto it = trafficData.find(selection); 
+
+        if(it == trafficData.end()) { 
+            cout << "Selection does not exist." << endl; 
+        } else {
+            cout << "Intersection Selected: " << selection << endl;
+            cout << "  Number of Cars History: ";
+                for (double val : trafficData[selection][0])
+                    cout << val << ", ";
+                cout << endl;
+            cout << "  Inflow History: ";
+                for (double val : trafficData[selection][1])
+                    cout << val << ", ";
+                cout << endl;
+            cout << "  Outflow History: ";
+                for (double val : trafficData[selection][2])
+                    cout << val << ", ";
+                cout << endl;
+            
+            cout << "What Intersection do you want to check (type end to quit): "; 
+            cin >> selection; 
     } 
 }

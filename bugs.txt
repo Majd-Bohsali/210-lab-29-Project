@@ -11,6 +11,10 @@ Bug #3:
     Bug: Rush hour bug, Outflow never changed becuase "else" statement for accident events overrided outflow value
     Fix: removed else block
 
-Bug #3: 
+Bug #4: 
     Bug: Rush hour bug, outflow values gets very small and number of cars explodes
     Fix: multiplied rush hour efficiency against the original intersection outflow and inflow numbers (front of array)
+
+Bug #5: 
+    Bug: When outputting data, if the user selects an intersection that does not exist, program returns an empty output
+    Fix: 
